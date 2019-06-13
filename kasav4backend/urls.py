@@ -23,14 +23,12 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register(r'currency', views.CurrencyView, 'currency')
 router.register(r'transaction', views.TransactionView, 'transaction')
+router.register(r'bank', views.BankView, 'bank')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     url(r'^_nested_admin/', include('nested_admin.urls')),
     url(r'api/one', views.OneView.as_view()),
-    url(r'api/two', views.TwoView.as_view()),
-    url(r'api/three', views.ThreeView.as_view()),
-    url(r'api/four', views.FourView.as_view()),
-    url(r'api/five', views.FiveView.as_view()),
+    url(r'api/categories', views.CategoriesView.as_view()),
 ]

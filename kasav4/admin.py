@@ -3,14 +3,9 @@ import nested_admin
 
 from .models import *
 
-class FiveInline(nested_admin.NestedStackedInline):
-    model = Five
-    extra = 0
-
 class FourInline(nested_admin.NestedStackedInline):
     model = Four
     extra = 0
-    inlines = [FiveInline]
 
 class ThreeInline(nested_admin.NestedStackedInline):
     model = Three
@@ -22,15 +17,16 @@ class TwoInline(nested_admin.NestedStackedInline):
     extra = 0
     inlines = [ThreeInline]
 
-
-class CategoriesAdmin(nested_admin.NestedModelAdmin):
+class OneInline(nested_admin.NestedStackedInline):
+    model = One
+    extra = 0
     inlines = [TwoInline]
 
+class CategoriesAdmin(nested_admin.NestedModelAdmin):
+    inlines = [OneInline]
 
-admin.site.register(One, CategoriesAdmin)
-admin.site.register(Two)
-admin.site.register(Three)
-admin.site.register(Four)
-admin.site.register(Five)
+
+admin.site.register(TransactionType, CategoriesAdmin)
 admin.site.register(Currency)
 admin.site.register(Transaction)
+admin.site.register(Bank)

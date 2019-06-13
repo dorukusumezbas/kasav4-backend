@@ -1,8 +1,16 @@
 from django.db import models
 
 
+class TransactionType(models.Model):
+    title = models.CharField(max_length= 60)
+
+    def __str__(self):
+        return self.title
+
+
 class One(models.Model):
     title = models.CharField(max_length= 60)
+    transaction_type = models.ForeignKey(TransactionType, on_delete= models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -32,24 +40,21 @@ class Four(models.Model):
         return self.title
 
 
-class Five(models.Model):
+class Currency(models.Model):
     title = models.CharField(max_length= 60)
-    upper_category = models.ForeignKey(Four, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
 
 
-class Currency(models.Model):
-    title = models.CharField(max_length= 60)
+class Bank(models.Model):
+    title = models.CharField(max_length=60)
+    isBank = models.BooleanField()
+    balance = models.IntegerField()
 
 
-TRANSACTION_METHODS = (
-    ("cash", "Nakit"),
-    ("bank", "Banka"),
-    ("check", "Çek"),
-    ("credit_card", "Kredi Kartı"),
-)
+    def __str__(self):
+        return self.title
 
 
 class Transaction(models.Model):
@@ -61,6 +66,10 @@ class Transaction(models.Model):
     two = models.ForeignKey(Two, on_delete=models.SET_NULL, null=True)
     three = models.ForeignKey(Three, on_delete=models.SET_NULL, null=True)
     four = models.ForeignKey(Four, on_delete=models.SET_NULL, null=True)
-    five = models.ForeignKey(Five, on_delete=models.SET_NULL, null=True)
-    transaction_method = models.CharField(max_length= 30, choices=TRANSACTION_METHODS)
+    transaction_method = models.CharField(max_length= 30)
+    transaction_type = models.CharField(max_length=10)
+    bank = models.ForeignKey(Bank, on_delete= models.SET_NULL, null= True)
+
+    def __str__(self):
+        return self.description
 

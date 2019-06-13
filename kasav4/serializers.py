@@ -2,6 +2,13 @@ from rest_framework import serializers
 from .models import *
 
 
+class TransactionTypeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TransactionType
+        fields = "__all__"
+
+
 class OneSerializer(serializers.ModelSerializer):
     class Meta:
         model = One
@@ -26,12 +33,6 @@ class FourSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class FiveSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Five
-        fields = "__all__"
-
-
 class CurrencySerializer(serializers.ModelSerializer):
     class Meta:
         model = Currency
@@ -42,4 +43,11 @@ class TransactionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Transaction
+        fields = "__all__"
+
+
+class BankSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Bank
         fields = "__all__"
