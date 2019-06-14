@@ -52,7 +52,6 @@ class Bank(models.Model):
     isBank = models.BooleanField()
     balance = models.IntegerField()
 
-
     def __str__(self):
         return self.title
 
