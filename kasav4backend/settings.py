@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'kasav4',
-    'nested_admin'
+    'nested_admin',
+    "django_filters",
 ]
 
 MIDDLEWARE = [
@@ -130,4 +131,3 @@ PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
 CORS_ORIGIN_ALLOW_ALL = True
-

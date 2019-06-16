@@ -31,4 +31,5 @@ urlpatterns = [
     url(r'^_nested_admin/', include('nested_admin.urls')),
     url(r'api/one', views.OneView.as_view()),
     url(r'api/categories', views.CategoriesView.as_view()),
+    url(r'api/table', views.TableView.as_view()),
 ]

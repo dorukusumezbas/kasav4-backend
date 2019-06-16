@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import *
-
+from rest_framework.pagination import PageNumberPagination
 
 class TransactionTypeSerializer(serializers.ModelSerializer):
 
@@ -41,9 +41,18 @@ class CurrencySerializer(serializers.ModelSerializer):
 
 class TransactionSerializer(serializers.ModelSerializer):
 
+
     class Meta:
         model = Transaction
         fields = "__all__"
+
+
+class TableSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Transaction
+        fields = "__all__"
+        depth = 1
 
 
 class BankSerializer(serializers.ModelSerializer):

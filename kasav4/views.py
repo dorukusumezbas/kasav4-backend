@@ -3,10 +3,17 @@ from rest_framework import viewsets
 from .serializers import *
 from .models import *
 from rest_framework.views import APIView
-from rest_framework.renderers import JSONRenderer
 from django.http import JsonResponse
-from django.core import serializers
 import json
+from rest_framework import generics
+from rest_framework import filters
+from url_filter.integrations.drf import DjangoFilterBackend
+
+
+class StandardResultsSetPagination(PageNumberPagination):
+    page_size = 15
+    page_size_query_param = 'page_size'
+    max_page_size = 1000
 
 
 class CurrencyView(viewsets.ModelViewSet):
@@ -19,6 +26,16 @@ class TransactionView(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
 
 
+class TableView(generics.ListAPIView):
+    queryset = Transaction.objects.all()
+    serializer_class = TableSerializer
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filter_fields = "__all__"
+    ordering_fields = '__all__'
+    ordering = ('-datetime')
+    pagination_class = StandardResultsSetPagination
+
+
 class OneView(APIView):
     def post(self, request):
         body = json.loads(request.body)
@@ -26,6 +43,24 @@ class OneView(APIView):
         return JsonResponse({
             "success": True,
             "content": list(one_query)
+        })
+
+
+class FilterTransactionTypeView(APIView):
+    def post(self, request):
+        query = TransactionType.objects.all().values()
+        return JsonResponse({
+            "success": True,
+            "content": list(query)
+        })
+
+
+class FilterOneView(APIView):
+    def post(self, request):
+        query = One.objects.all().values()
+        return JsonResponse({
+            "success": True,
+            "content": list(query)
         })
 
 
@@ -62,4 +97,3 @@ class CategoriesView(APIView):
 class BankView(viewsets.ModelViewSet):
     serializer_class = BankSerializer
     queryset = Bank.objects.all()
-
