@@ -6,7 +6,7 @@ django-cors-headers==3.0.2
 django-filter==2.1.0
 django-nested-admin==3.2.3
 django-url-filter==0.3.12
-djangorestframework==3.9.4
+djangorestframework==3.11.2
 enum-compat==0.0.2
 idna==2.8
 python-monkey-business==1.0.0
